@@ -114,8 +114,19 @@ Vagrant.configure('2') do |config|
     end
   end
 
+  config.vm.define 'u16' do |define|
+    define.vm.hostname = gen_hostname('u16')
+
+#    define.vm.provider :virtualbox do |provider, override|
+#      override.vm.box = 'ubuntu/trusty64'
+#    end
+    define.vm.provider :digital_ocean do |provider, override|
+      provider.image = 'ubuntu-16-04-x64'
+    end
+  end
+
   # setup the remote repo needed to install a current version of puppet
-  config.puppet_install.puppet_version = '3.8.2'
+  config.puppet_install.puppet_version = '4.2.2'
 
   config.vm.provision :puppet do |puppet|
     puppet.manifests_path = "manifests"
